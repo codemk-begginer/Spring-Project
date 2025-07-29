@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: positions
+    datasource:
+      password:root
+      username:root
+    url: jdbc:mysql://localhost:3306/positions
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    sql:
+      init:
+        mode:always
+server:
+  servlet:
+    context-path:/api
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  info:
+    build:
+      enable: true
+    env:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+info:
+  application:
+    name: positions
+    version: 1.0.1
+    maintainer:
+      name: steve mk
+      email: metenousteve@gmail.com
