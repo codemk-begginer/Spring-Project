@@ -2,39 +2,67 @@ package tech.steve.farmer_app.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import tech.steve.farmer_app.enums.Role;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Entity
-@Data
+import java.util.Collection;
+import java.util.List;
+
 @Builder
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
-public class Utilisateur {
+@NoArgsConstructor
+@Entity
+@Table(name = "utilisateur")
+public class Utilisateur implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, unique = true)
-    private String username;
-
+    private int id;
+    @Column(name = "mot de passe")
+    private String mdp;
     private String nom;
-    private String prenom;
     private String email;
-    private String telephone;
+    private Boolean actif = false;
 
-    private String motDePasse; // Envisager le hash en production
-
-    @Enumerated(EnumType.STRING)
+    @OneToOne(cascade = CascadeType.ALL)
     private Role role;
 
-    private boolean actif = true; // Utilisé à la place de suppression
 
-    @ManyToOne
-    private Ferme ferme;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
 
+    @Override
+    public String getPassword() {
+        return "";
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
 }
