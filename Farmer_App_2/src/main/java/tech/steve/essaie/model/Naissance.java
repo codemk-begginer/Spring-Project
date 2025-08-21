@@ -1,7 +1,5 @@
 package tech.steve.essaie.model;
 
-import tech.steve.essaie.enums.Sexe;
-import tech.steve.essaie.enums.StatutAnimal;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,38 +13,22 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Animal {
+public class Naissance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
+    private Integer nbVivant;
+    private Integer nbMort;
     private LocalDate dateNaissance;
-    private LocalDate dateMort;
-
-    @Enumerated(EnumType.STRING)
-    private Sexe sexe;
-
-    @Enumerated(EnumType.STRING)
-    private StatutAnimal statut;
-
-    private String code;
-
-
-    @Column(name = "qr_code_url", columnDefinition = "TEXT")
-    private String qrCodeUrl;
 
     @ManyToOne
-    private Animal mere;
-
-    @ManyToOne
-    private Animal pere;
-
-    private Integer generation;
+    private Croisement croisement;
 
     private String observations;
+    private String nomIntervenant;
+    private String telephoneIntervenant;
 
     @ManyToOne(optional = false)
     private Ferme ferme;

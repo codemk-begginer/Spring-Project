@@ -14,13 +14,11 @@ public interface AnimalMapper {
     AnimalDto toDto(Animal entity);
 
     @InheritInverseConfiguration
-    @Mapping(target = "id", ignore = false)
-    @Mapping(target = "code")
-    @Mapping(target = "qrCodeUrl")
-    @Mapping(target = "mere",ignore = true)
-    @Mapping(target = "pere",ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "code", ignore = true)
+    @Mapping(target = "qrCodeUrl", ignore = true)
+    @Mapping(target = "mere", ignore = true)
+    @Mapping(target = "pere", ignore = true)
     Animal toEntity(AnimalDto dto);
-
-    //void updateEntityFromDto(AnimalDto dto, Animal animal);
 }
 

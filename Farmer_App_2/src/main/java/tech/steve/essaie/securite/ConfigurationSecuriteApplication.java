@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.apache.catalina.webresources.TomcatURLStreamHandlerFactory.disable;
 import static org.springframework.http.HttpMethod.*;
 
 @Configuration
@@ -43,9 +44,16 @@ public class ConfigurationSecuriteApplication {
                         .csrf(AbstractHttpConfigurer::disable)
                         .authorizeHttpRequests(
                                 authorize -> authorize.requestMatchers(POST,"/connexion").permitAll()
+
+                                                      .requestMatchers(POST,"/createFerme").permitAll()
+                                                      .requestMatchers(GET,"/read").permitAll()
+                                                      .requestMatchers(PUT,"/update/{id}").permitAll()
+                                                      .requestMatchers(POST,"/delete/{id}").permitAll()
+                                                      .requestMatchers(GET,"/findById/{id}").permitAll()
+
+                                        //===================================== User ======================================//
                                                       .requestMatchers(POST,"/activation").permitAll()
                                                       .requestMatchers(POST,"/createUser").permitAll()
-                                                      .requestMatchers(POST,"/createFerme").permitAll()
                                                       .requestMatchers(POST,"/changePassword").permitAll()
                                                       .requestMatchers(POST,"/newPassword").permitAll()
                                                       .requestMatchers(POST,"/refresh-token").permitAll()
@@ -56,7 +64,54 @@ public class ConfigurationSecuriteApplication {
                                                       .requestMatchers(GET,"/findByActif").permitAll()
                                                       .requestMatchers(GET,"/findByFermeId/{id}").permitAll()
                                                       .requestMatchers(GET,"/findByEmail").permitAll()
-                                                      .requestMatchers(GET,"/avis").hasAnyAuthority("ROLE_MANAGER","ROLE_ADMINISTRATEUR")
+
+                                        //===================================== Animal ======================================//
+
+                                                      .requestMatchers(POST,"/createAnimal").permitAll()
+                                                      .requestMatchers(GET,"/findBySexe").permitAll()
+                                                      .requestMatchers(GET,"/findByPere").permitAll()
+                                                      .requestMatchers(GET,"/findByMere").permitAll()
+                                                      .requestMatchers(GET,"/findAllByFerme/{fermeId}").permitAll()
+                                                      .requestMatchers(GET,"/findAnimalById/{id}").permitAll()
+
+                                        //===================================== Stock ======================================//
+
+                                                      .requestMatchers(POST,"/createStock").permitAll()
+                                                      .requestMatchers(PUT,"/updateStock/{id}").permitAll()
+                                                      .requestMatchers(POST,"/deleteStock/{id}").permitAll()
+                                                      .requestMatchers(GET,"/findStockById/{id}").permitAll()
+                                                      .requestMatchers(GET,"/findAll").permitAll()
+                                                      .requestMatchers(GET,"/findByProduit").permitAll()
+                                                      .requestMatchers(GET,"/findByCategorie").permitAll()
+                                                      .requestMatchers(GET,"/findByDateBetween").permitAll()
+                                                      .requestMatchers(GET,"/getStockActuel").permitAll()
+                                                      .requestMatchers(GET,"/isEnDessousSeuil").permitAll()
+                                                      .requestMatchers(GET,"/getAlertesSeuil").permitAll()
+
+                                        //===================================== Transaction ======================================//
+
+                                                      .requestMatchers(POST,"/createTransaction").permitAll()
+                                                      .requestMatchers(GET,"/findByAnimalId/{id}").permitAll()
+                                                      .requestMatchers(PUT,"/updateTransaction/{id}").permitAll()
+                                                      .requestMatchers(POST,"/deleteTransaction/{id}").permitAll()
+                                                      .requestMatchers(GET,"/findAllTransaction").permitAll()
+                                                      .requestMatchers(GET,"/findTransactionById/{id}").permitAll()
+                                                      .requestMatchers(GET,"/findByAnimalId/{id}").permitAll()
+                                                      .requestMatchers(GET,"/findTransactionByType").permitAll()
+                                                      .requestMatchers(GET,"/findByDateRange").permitAll()
+                                                      .requestMatchers(GET,"/getTotalTransactionByType").permitAll()
+                                                      .requestMatchers(GET,"/getTotalTransactionForAnimal").permitAll()
+                                                      .requestMatchers(GET,"/getTotalGlobal").permitAll()
+                                                      .requestMatchers(GET,"/getHistoriqueTransaction/{id}").permitAll()
+                                                      .requestMatchers(GET,"/findByIntervenant").permitAll()
+                                                      .requestMatchers(GET,"/exportTransactionToExcel").permitAll()
+                                                      .requestMatchers(GET,"/exportTransactionToPdf").permitAll()
+
+                                        //===================================== Swagger ======================================//
+
+                                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+
+                                        .requestMatchers(GET,"/avis").hasAnyAuthority("ROLE_MANAGER","ROLE_ADMINISTRATEUR")
 
 
                                         .anyRequest().authenticated()
@@ -67,6 +122,7 @@ public class ConfigurationSecuriteApplication {
                         )
 
                         .addFilterBefore(jwtFilter,UsernamePasswordAuthenticationFilter.class)
+
                         .build();
     }
 

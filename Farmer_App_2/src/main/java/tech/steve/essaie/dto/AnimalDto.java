@@ -1,7 +1,6 @@
 package tech.steve.essaie.dto;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Lob;
 import tech.steve.essaie.enums.Sexe;
 import tech.steve.essaie.enums.StatutAnimal;
 import lombok.AllArgsConstructor;
@@ -18,17 +17,11 @@ import java.time.LocalDate;
 public class AnimalDto {
 
     private Long id;
-
     private String code;
-
     private LocalDate dateNaissance;
-
     private LocalDate dateMort;
-
     private Sexe sexe;
-
     private StatutAnimal statut;
-
     private Integer generation;
 
     private Long mereId;
@@ -36,8 +29,7 @@ public class AnimalDto {
 
     private String observations;
 
-    @Lob // permet de stocker de longues données
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "qr_code_url", columnDefinition = "TEXT")
     private String qrCodeUrl;
 
     private Long fermeId;
