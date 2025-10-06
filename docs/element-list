@@ -1,0 +1,15 @@
+tech.steve.essaie
+tech.steve.essaie.config
+tech.steve.essaie.controller
+tech.steve.essaie.dto
+tech.steve.essaie.dto.animal
+tech.steve.essaie.dto.ferme
+tech.steve.essaie.dto.utilisateur
+tech.steve.essaie.enums
+tech.steve.essaie.exceptions
+tech.steve.essaie.mapper
+tech.steve.essaie.model
+tech.steve.essaie.repository
+tech.steve.essaie.securite
+tech.steve.essaie.service
+tech.steve.essaie.service.impl
